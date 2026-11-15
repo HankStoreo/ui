@@ -80,5 +80,7 @@ The script watches the page, so tiles that React adds or changes are handled aut
 ## Limitations
 
 - **A linked tile can still be followed while loading.** If that's wrong for your page, leave out `href` until the figure arrives.
+- **The definition can be clipped.** It's a CSS tooltip drawn above the tile, with no collision handling: an `overflow: hidden` ancestor or the top of the viewport can cut it off. Leave room above the band, or don't clip it.
+- **No definition on touch for a linked tile.** There's no hover, so a tap follows the link. A static tile shows its definition when focused. Screen readers get it either way, as the tile's description.
 - **The observer watches the whole document.** That hasn't been profiled on very large pages.
 - **Recent browsers only.** See [browser support](../../../README.md#browser-support).
