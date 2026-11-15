@@ -22,3 +22,6 @@ playwright-report/
 .stfolder
 .stignore
 .stversions/
+
+# Media capture scratch
+docs/media/.raw/

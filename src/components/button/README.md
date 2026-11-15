@@ -2,9 +2,9 @@
 
 A button lit from above, with a gradient and soft shadows taken from its own colour. It has primary, go and danger variants, busy and disabled states, and a press guard that stops a busy or switched-off button from acting.
 
-![Button](../../../docs/button.png)
+![Hovering and pressing the primary, default and danger buttons: each lifts on hover and sinks when pressed.](../../../docs/media/button-hover-press.gif)
 
-[Demo](index.html) · [Tests](button.test.js)
+[Live demo](https://hankstoreo.github.io/ui/src/components/button/) · [Demo source](index.html) · [Tests](button.test.js)
 
 ## Install
 
@@ -28,6 +28,8 @@ Copy `tokens.css`, `shared/spinner.css` and this folder. The script is only need
 ```
 
 Busy: wrap the label in `.btn-label` and add a spinner. Then set `aria-busy="true"` while the work runs, and remove it when the work is done.
+
+![Clicking Save: a spinner replaces the label for two seconds, and the button keeps its width.](../../../docs/media/button-busy.gif)
 
 ```html
 <button type="button" class="btn btn--primary" aria-busy="true">
@@ -61,11 +63,15 @@ Busy: wrap the label in `.btn-label` and add a spinner. Then set `aria-busy="tru
 
 - **Press guard (`button.js`):** a click on a `.btn` with `aria-busy="true"` or `aria-disabled="true"` is dropped before any handler runs, and a form doesn't submit. Enter and Space are covered too, because they arrive as clicks. The guard affects `.btn` elements only. Other buttons, links and inputs on the page are left alone, and so is a busy ancestor.
 - **Keyboard focus:** a 2px ring in the variant's colour, with a gap of page between the ring and the button. The ring is drawn with shadows, plus a transparent outline for Windows high-contrast mode.
+
+  ![Tabbing through the buttons: each shows a focus ring in its own colour.](../../../docs/media/button-keyboard.gif)
 - **Busy:** the label is hidden by opacity only, so it stays the button's accessible name.
 - **Hover:** the lift and glow apply only where a pointer can hover, so a tap doesn't leave the button lifted.
 - **Reduced motion:** transitions and the spinner stop.
 - **Print:** a flat fill with no shadows.
 - **Contrast:** in dark mode, the danger label is lightened so it stays at or above 4.5:1 against both ends of the gradient.
+
+  ![In dark mode, the danger button is quiet at rest and fills red on hover.](../../../docs/media/button-danger-dark.gif)
 
 ## Limitations
 

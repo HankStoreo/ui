@@ -2,9 +2,9 @@
 
 A band of headline figures. Each tile shows a figure and its label, and can add a change line, a unit or period, a sparkline of the trend and a definition. A tile that counts things links to them.
 
-![KPI tile](../../../docs/kpi-tile.png)
+![KPI tiles: the sparklines draw in from left to right, then a tile lifts on hover and shows its definition.](../../../docs/media/kpi-tile.gif)
 
-[Demo](index.html) · [Tests](kpi-tile.test.js)
+[Live demo](https://hankstoreo.github.io/ui/src/components/kpi-tile/) · [Demo source](index.html) · [Tests](kpi-tile.test.js)
 
 ## Install
 

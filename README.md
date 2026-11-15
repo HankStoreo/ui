@@ -4,12 +4,14 @@ Small UI components in plain CSS and JavaScript. There's no framework and no bui
 
 | Component | What it is | Demo |
 | --- | --- | --- |
-| [Button](src/components/button/) | A lit button with primary, go and danger variants, busy and disabled states, and a press guard. | [index.html](src/components/button/index.html) |
-| [KPI tile](src/components/kpi-tile/) | A band of figures, each with a label, an optional change line, a sparkline and a definition. | [index.html](src/components/kpi-tile/index.html) |
+| [Button](src/components/button/) | A lit button with primary, go and danger variants, busy and disabled states, and a press guard. | [Live demo](https://hankstoreo.github.io/ui/src/components/button/) |
+| [KPI tile](src/components/kpi-tile/) | A band of figures, each with a label, an optional change line, a sparkline and a definition. | [Live demo](https://hankstoreo.github.io/ui/src/components/kpi-tile/) |
 
-![Button](docs/button.png)
+![Hovering and pressing the primary, default and danger buttons: each lifts on hover and sinks when pressed.](docs/media/button-hover-press.gif)
 
-![KPI tile](docs/kpi-tile.png)
+![KPI tiles: the sparklines draw in from left to right, then a tile lifts on hover and shows its definition.](docs/media/kpi-tile.gif)
+
+The demos also work offline: open a component's `index.html` from a clone.
 
 ## Install
 
@@ -51,6 +53,8 @@ npm test
 ```
 
 The tests run every component test and every demo page (including an axe accessibility scan in light and dark) in Chromium, Firefox and WebKit.
+
+The gifs and videos in `docs/media/` are recorded from the demo pages by `npm run media` (needs ffmpeg). Rerun it after any visual change.
 
 ## Licence
 

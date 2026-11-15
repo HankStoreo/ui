@@ -5,7 +5,8 @@
   "description": "Plain CSS and JavaScript UI components: no framework, no build step. Dev dependencies are for the tests only.",
   "license": "MIT",
   "scripts": {
-    "test": "playwright test"
+    "test": "playwright test",
+    "media": "node docs/capture-media.js"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
