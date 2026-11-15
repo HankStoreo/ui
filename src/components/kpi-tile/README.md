@@ -2,7 +2,7 @@
 
 A band of headline figures. Each tile shows a figure and its label, and can add a change line, a unit or period, a sparkline of the trend and a definition. A tile that counts things links to them.
 
-![KPI tiles: the sparklines draw in from left to right, then a tile lifts on hover and shows its definition.](../../../docs/media/kpi-tile.gif)
+<img src="../../../docs/media/kpi-tile.gif" alt="KPI tiles: the sparklines draw in from left to right, then a tile lifts on hover and shows its definition." width="600">
 
 [Live demo](https://hankstoreo.github.io/ui/src/components/kpi-tile/) · [Demo source](index.html) · [Tests](kpi-tile.test.js)
 
@@ -63,6 +63,10 @@ The script watches the page, so tiles that React adds or changes are handled aut
 | `.kpi--zero` | Nothing waiting: the figure goes quiet. |
 | `.kpi--loading` + `aria-busy="true"` | A placeholder bar. Put `<span class="sr-only">Loading</span>` in `.kpi-v`. |
 | `.kpi--error`, `.kpi--missing` | Shows `--`. Put a word (`No figure`, `No value`) in `.sr-only` inside `.kpi-v`, and say why in `.kpi-n`. |
+
+<img src="../../../docs/media/kpi-colours.gif" alt="KPI tiles coloured by state (low battery, offline, all passed, none open), in light and then dark mode: each lifts on hover and shows its definition." width="600">
+
+<img src="../../../docs/media/kpi-states.gif" alt="KPI tile states: loading pulses, couldn't load and no value show a dash, and a long value is abbreviated with the full figure in its definition." width="600">
 
 ## Behaviour and accessibility
 

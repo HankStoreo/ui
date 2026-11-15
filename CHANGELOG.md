@@ -4,6 +4,6 @@ Each release is a git tag (`vX.Y.Z`). Breaking changes to class names, attribute
 
 ## v0.1.0 · first public release
 
-- Button: primary, go and danger variants; disabled and busy states; a press guard for `.btn`.
+- Button: primary, go and danger variants; disabled and busy states; directional icons that nudge on hover; a press guard for `.btn`.
 - KPI tile: band, figure sizing, sparkline, definitions, state colours, and loading, error and missing states.
 - Tokens for light and dark, shared spinner and `.sr-only`, standalone demos, and tests in Chromium, Firefox and WebKit.

@@ -7,9 +7,11 @@ Small UI components in plain CSS and JavaScript. There's no framework and no bui
 | [Button](src/components/button/) | A lit button with primary, go and danger variants, busy and disabled states, and a press guard. | [Live demo](https://hankstoreo.github.io/ui/src/components/button/) |
 | [KPI tile](src/components/kpi-tile/) | A band of figures, each with a label, an optional change line, a sparkline and a definition. | [Live demo](https://hankstoreo.github.io/ui/src/components/kpi-tile/) |
 
-![Hovering and pressing the primary, default and danger buttons: each lifts on hover and sinks when pressed.](docs/media/button-hover-press.gif)
+<img src="docs/media/button-hover-press.gif" alt="Hovering and pressing the primary, default and danger buttons: each lifts on hover and sinks when pressed." width="315">
 
-![KPI tiles: the sparklines draw in from left to right, then a tile lifts on hover and shows its definition.](docs/media/kpi-tile.gif)
+<img src="docs/media/kpi-tile.gif" alt="KPI tiles: the sparklines draw in from left to right, then a tile lifts on hover and shows its definition." width="600">
+
+<img src="docs/media/kpi-colours.gif" alt="KPI tiles coloured by state, in light and then dark mode." width="600">
 
 The demos also work offline: open a component's `index.html` from a clone.
 

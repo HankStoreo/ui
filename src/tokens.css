@@ -4,6 +4,9 @@
    inside a raised box lifts less. */
 
 :root {
+  --btn-nudge: 2px;
+  --btn-turn: 135deg;
+  --btn-turn-add: 90deg;
   --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --motion-move-ease: cubic-bezier(0.65, 0, 0.35, 1);
   --motion-quick: 180ms;

@@ -2,7 +2,7 @@
 
 A button lit from above, with a gradient and soft shadows taken from its own colour. It has primary, go and danger variants, busy and disabled states, and a press guard that stops a busy or switched-off button from acting.
 
-![Hovering and pressing the primary, default and danger buttons: each lifts on hover and sinks when pressed.](../../../docs/media/button-hover-press.gif)
+<img src="../../../docs/media/button-hover-press.gif" alt="Hovering and pressing the primary, default and danger buttons: each lifts on hover and sinks when pressed." width="315">
 
 [Live demo](https://hankstoreo.github.io/ui/src/components/button/) · [Demo source](index.html) · [Tests](button.test.js)
 
@@ -29,7 +29,7 @@ Copy `tokens.css`, `shared/spinner.css` and this folder. The script is only need
 
 Busy: wrap the label in `.btn-label` and add a spinner. Then set `aria-busy="true"` while the work runs, and remove it when the work is done.
 
-![Clicking Save: a spinner replaces the label for two seconds, and the button keeps its width.](../../../docs/media/button-busy.gif)
+<img src="../../../docs/media/button-busy.gif" alt="Clicking Save: a spinner replaces the label for two seconds, the button keeps its width, and repeat clicks are ignored." width="401">
 
 ```html
 <button type="button" class="btn btn--primary" aria-busy="true">
@@ -57,6 +57,8 @@ Busy: wrap the label in `.btn-label` and add a spinner. Then set `aria-busy="tru
 | `aria-disabled="true"` | Off, but still focusable, so its reason can be heard. Put the reason in `.btn-reason` and link it with `aria-describedby`. |
 | `aria-busy="true"` | A spinner replaces the label. The button keeps its width and its accessible name. |
 | `.icon` | An inline SVG sized to the text (`aria-hidden="true"`). |
+| `.icon--next`, `.icon--back`, `.icon--up`, `.icon--out`, `.icon-move` | A directional icon nudges that way on hover: forward, back, up, up and out (another site), down. Put `.icon-move` or `.icon--up` on the arrow path only, so a tray stays still. |
+| `.icon--turn`, `.icon--add` | Refresh turns, and a plus turns a quarter, on hover. Icons with no direction stay still. |
 | `.btn-row`, `.btn-row--end` | A row of buttons: left aligned (primary first), or right aligned (dialogs: Cancel, then OK). |
 
 ## Behaviour and accessibility
@@ -64,14 +66,16 @@ Busy: wrap the label in `.btn-label` and add a spinner. Then set `aria-busy="tru
 - **Press guard (`button.js`):** a click on a `.btn` with `aria-busy="true"` or `aria-disabled="true"` is dropped before any handler runs, and a form doesn't submit. Enter and Space are covered too, because they arrive as clicks. The guard affects `.btn` elements only. Other buttons, links and inputs on the page are left alone, and so is a busy ancestor.
 - **Keyboard focus:** a 2px ring in the variant's colour, with a gap of page between the ring and the button. The ring is drawn with shadows, plus a transparent outline for Windows high-contrast mode.
 
-  ![Tabbing through the buttons: each shows a focus ring in its own colour.](../../../docs/media/button-keyboard.gif)
+  <img src="../../../docs/media/button-keyboard.gif" alt="Tabbing through the buttons: each shows a focus ring in its own colour." width="315">
 - **Busy:** the label is hidden by opacity only, so it stays the button's accessible name.
-- **Hover:** the lift and glow apply only where a pointer can hover, so a tap doesn't leave the button lifted.
+- **Hover:** the lift and glow apply only where a pointer can hover, so a tap doesn't leave the button lifted. A directional icon nudges 2px its way, but not on a disabled or busy button.
+
+  <img src="../../../docs/media/button-icons.gif" alt="Hovering buttons with icons: each arrow nudges the way its action goes (down to download, forward to continue, up to import, out to share)." width="562">
 - **Reduced motion:** transitions and the spinner stop.
 - **Print:** a flat fill with no shadows.
 - **Contrast:** in dark mode, the danger label is lightened so it stays at or above 4.5:1 against both ends of the gradient.
 
-  ![In dark mode, the danger button is quiet at rest and fills red on hover.](../../../docs/media/button-danger-dark.gif)
+  <img src="../../../docs/media/button-danger-dark.gif" alt="In dark mode, the danger button is quiet at rest and fills red on hover." width="315">
 
 ## Limitations
 

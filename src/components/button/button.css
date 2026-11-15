@@ -105,3 +105,19 @@
 
 .btn-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); justify-content: flex-start; }
 .btn-row--end { justify-content: flex-end; }
+
+/* Directional icons: an icon that points where the action goes moves that way on hover, by --btn-nudge.
+   .icon--next forward, .icon--back back, .icon--up up, .icon--out up and out (another site), .icon-move down
+   (put it on a download's arrow path so the tray stays), .icon--turn turns (refresh), .icon--add turns a quarter.
+   Not on a disabled or busy button, not under Reduce motion, not after a tap. */
+.icon--next { --nudge-x: 1; } .icon--back { --nudge-x: -1; } .icon--up { --nudge-y: -1; }
+.icon--out { --nudge-x: 1; --nudge-y: -1; } .icon-move { --nudge-y: 1; }
+:is(.icon--next, .icon--back, .icon--up, .icon--out, .icon-move) { transition: translate var(--motion-swap) var(--ease); }
+:is(.icon--turn, .icon--add) { transition: rotate var(--motion-swap) var(--ease); }
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .btn:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) :is(.icon--next, .icon--back, .icon--up, .icon--out, .icon-move) {
+    translate: calc(var(--nudge-x, 0) * var(--btn-nudge)) calc(var(--nudge-y, 0) * var(--btn-nudge));
+  }
+  .btn:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) .icon--turn { rotate: var(--btn-turn); }
+  .btn:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) .icon--add { rotate: var(--btn-turn-add); }
+}
