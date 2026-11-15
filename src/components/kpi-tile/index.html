@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KPI tile · ui</title>
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../shared/sr-only.css">
+<link rel="stylesheet" href="kpi-tile.css">
+<script src="kpi-tile.js" defer></script>
+<style>
+  body { margin: 0; padding: var(--space-4) 16px; background: var(--ground); color: var(--ink-body); font: var(--fs-body)/1.5 var(--font-body); }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { color: var(--ink); font-size: 20px; font-weight: 600; margin: 0 0 var(--space-2); }
+  h2 { color: var(--ink-dim); font-size: var(--fs-note); font-weight: 500; margin: var(--space-4) 0 var(--space-2); }
+  .demo-bar { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; border-bottom: 1px solid var(--hair); padding-bottom: var(--space-3); margin-bottom: var(--space-3); }
+  .demo-bar label, .demo-note { font-size: var(--fs-note); color: var(--ink-dim); }
+</style>
+</head>
+<body>
+<main>
+  <div class="demo-bar">
+    <h1>KPI tile</h1>
+    <label>Theme <select id="theme"><option value="">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  </div>
+  <p class="demo-note">A made-up weather station. Every figure is invented.</p>
+
+  <h2>With sparkline: the trend behind each figure (hover or focus a tile for its definition)</h2>
+  <div class="kpis" id="spark">
+    <a class="kpi" href="#bd-temp" data-tip="Air temperature at noon today" data-spark="12,13,15,14,16,17,18"><span class="kpi-v">18°C</span><span class="kpi-d"><span class="signed">+1°C</span> vs yesterday</span><span class="kpi-l">Temperature</span><span class="kpi-n">at noon</span></a>
+    <a class="kpi" href="#bd-rain" data-tip="Rain collected over the past 7 days" data-spark="2,0,6,4,,3,9"><span class="kpi-v">24 mm</span><span class="kpi-d"><span class="signed">+5 mm</span> vs last week</span><span class="kpi-l">Rainfall</span><span class="kpi-n">past 7 days · one day not read</span></a>
+    <a class="kpi" href="#bd-wind" data-tip="Average wind speed today" data-spark="10,20,15,25,15,10,15"><span class="kpi-v">15 km/h</span><span class="kpi-d"><span class="signed">0</span> vs yesterday</span><span class="kpi-l">Wind</span><span class="kpi-n">daily average</span></a>
+    <a class="kpi" href="#bd-humidity" data-tip="Relative humidity at noon today" data-spark="70,65,60,65,60,55,60"><span class="kpi-v">60%</span><span class="kpi-d"><span class="signed">+5%</span> vs yesterday</span><span class="kpi-l">Humidity</span><span class="kpi-n">at noon</span></a>
+  </div>
+
+  <h2>Neutral band, with a caption for what every tile shares</h2>
+  <p class="kpis-cap">As of 1 March · 12 sensors on the roof</p>
+  <div class="kpis">
+    <a class="kpi" href="#bd-sensors" data-tip="Sensors installed on the roof"><span class="kpi-v">12</span><span class="kpi-l">Sensors</span><span class="kpi-n">installed</span></a>
+    <a class="kpi" href="#bd-readings" data-tip="Readings taken today, one every 10 minutes per sensor"><span class="kpi-v">1,728</span><span class="kpi-l">Readings today</span><span class="kpi-n">every 10 minutes</span></a>
+    <a class="kpi" href="#bd-temp" data-tip="Air temperature at noon today"><span class="kpi-v">18°C</span><span class="kpi-l">Temperature</span><span class="kpi-n">at noon</span></a>
+    <a class="kpi" href="#bd-rain" data-tip="Rain collected over the past 7 days"><span class="kpi-v">24 mm</span><span class="kpi-l">Rainfall</span><span class="kpi-n">past 7 days</span></a>
+  </div>
+
+  <h2>Coloured by state: the word says it too, so colour isn't the only signal</h2>
+  <div class="kpis">
+    <a class="kpi kpi--warn" href="#bd-battery" data-tip="Sensors whose battery is below 20%"><span class="kpi-v">2</span><span class="kpi-l">Low battery</span><span class="kpi-n">Needs a look · below 20%</span></a>
+    <a class="kpi kpi--alert" href="#bd-offline" data-tip="Sensors that sent nothing in the past hour"><span class="kpi-v">1</span><span class="kpi-l">Offline</span><span class="kpi-n">Not reporting · past hour</span></a>
+    <a class="kpi kpi--ok" href="#bd-checked" data-tip="Days whose readings passed the daily check this month"><span class="kpi-v">30</span><span class="kpi-l">Days checked</span><span class="kpi-n">All passed · this month</span></a>
+    <a class="kpi kpi--zero" href="#bd-alerts" data-tip="Weather alerts open now"><span class="kpi-v">0</span><span class="kpi-l">Alerts open</span><span class="kpi-n">n = 0 of 40 this year</span></a>
+  </div>
+
+  <h2>Static figures: nothing to open, so no hover; focusable for the definition</h2>
+  <div class="kpis" id="static">
+    <div class="kpi" tabindex="0" data-tip="Hours of sunshine recorded today"><span class="kpi-v">8 h</span><span class="kpi-l">Sunshine today</span><span class="kpi-n">since sunrise</span></div>
+    <div class="kpi" tabindex="0" data-tip="Strongest gust recorded today"><span class="kpi-v">40 km/h</span><span class="kpi-l">Highest gust</span><span class="kpi-n">at 14:00</span></div>
+    <div class="kpi" tabindex="0" data-tip="Days with a full set of readings since the station opened"><span class="kpi-v">120</span><span class="kpi-l">Days recorded</span><span class="kpi-n">since opening</span></div>
+  </div>
+
+  <h2>States: loading, couldn't load, no value, and a long value abbreviated</h2>
+  <div class="kpis" id="states">
+    <a class="kpi kpi--loading" href="#bd-temp" aria-busy="true" data-tip="Air temperature at noon today"><span class="kpi-v"><span class="sr-only">Loading</span></span><span class="kpi-l">Temperature</span><span class="kpi-n">at noon</span></a>
+    <a class="kpi kpi--error" href="#bd-humidity" data-tip="Relative humidity at noon today"><span class="kpi-v"><span class="sr-only">No figure</span></span><span class="kpi-l">Humidity</span><span class="kpi-n">Couldn't load · refresh to retry</span></a>
+    <div class="kpi kpi--missing" tabindex="0" data-tip="Rainfall in February: the rain gauge was being repaired"><span class="kpi-v"><span class="sr-only">No value</span></span><span class="kpi-l">Rainfall</span><span class="kpi-n">Not recorded for February</span></div>
+    <div class="kpi" tabindex="0" data-tip="Readings stored since the station opened: 1,234,567"><span class="kpi-v" aria-label="1,234,567">1.23M</span><span class="kpi-l">Readings stored</span><span class="kpi-n">full value in the definition</span></div>
+  </div>
+
+  <h2>Where each linked tile goes</h2>
+  <ul>
+    <li id="bd-temp">Temperature: one reading per sensor at noon.</li>
+    <li id="bd-rain">Rainfall: daily totals for the past 7 days.</li>
+    <li id="bd-wind">Wind: average of the day's readings.</li>
+    <li id="bd-humidity">Humidity: one reading per sensor at noon.</li>
+    <li id="bd-sensors">Sensors: the 12 on the roof.</li>
+    <li id="bd-readings">Readings today: 12 sensors × 144 readings.</li>
+    <li id="bd-battery">Low battery: 2 sensors.</li>
+    <li id="bd-offline">Offline: 1 sensor.</li>
+    <li id="bd-checked">Days checked: 30 days.</li>
+    <li id="bd-alerts">Alerts open: none.</li>
+  </ul>
+</main>
+<script>
+  const theme = document.getElementById('theme')
+  theme.addEventListener('change', () => { theme.value ? document.documentElement.dataset.theme = theme.value : delete document.documentElement.dataset.theme })
+</script>
+</body>
+</html>

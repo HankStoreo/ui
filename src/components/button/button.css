@@ -1,0 +1,107 @@
+/* Button. Variants: .btn--primary (one main action per view), .btn--go (confirm or done), .btn--danger
+   (removes or destroys; quiet at rest, red on hover). Lit from above: a gradient and four shadow layers, all mixed from
+   the variant's own colour. Hover lifts a pixel; press sinks it; keyboard focus draws a ring in the variant's colour.
+   States: disabled or aria-disabled="true" (put the reason beside it in .btn-reason); aria-busy="true" swaps the
+   label, wrapped in .btn-label, for a .spinner and keeps the button's width and accessible name.
+   The label never wraps: keep it to a few words, or let the .btn-row wrap. Hover styles apply only where a pointer
+   can hover. Layout: .btn-row (left aligned, wraps), .btn-row--end (right aligned, e.g. dialogs).
+   Internal custom properties per variant: --lit-base, --lit-tint, --lit-g, --lit-top, --lit-top-hover, --lit-ring,
+   --lit-focus. */
+.btn {
+
+  --lit-base: var(--btn-base); --lit-tint: var(--btn-shade); --lit-g: var(--btn-glow-quiet); --lit-top: 86%; --lit-top-hover: 78%;
+  --lit-ring: var(--accent); --lit-focus: 0 0 0 0 transparent;
+  background: linear-gradient(color-mix(in srgb, var(--lit-base) var(--lit-top), var(--btn-light)), color-mix(in srgb, var(--lit-base) 90%, var(--btn-shade)));
+  box-shadow: var(--lit-focus),
+    inset 0 1px 0 color-mix(in srgb, var(--btn-light) var(--btn-hi), transparent),
+    inset 0 -1px 2px color-mix(in srgb, var(--btn-shade) var(--btn-lo), transparent),
+    0 1px 2px color-mix(in srgb, var(--btn-shade) var(--btn-contact), transparent),
+    0 8px 24px -6px color-mix(in srgb, var(--lit-tint) var(--lit-g), transparent);
+
+  transition: border-color var(--t-fast), color var(--t-fast),
+    box-shadow var(--motion-swap) var(--ease), translate var(--motion-swap) var(--ease);
+}
+.btn {
+  position: relative;
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  font-family: var(--font-body); font-size: var(--fs-body); font-weight: var(--fw-mid);
+
+  line-height: 1.25; letter-spacing: 0; text-transform: none; text-decoration: none; white-space: nowrap;
+  color: var(--ink);
+  border: 1px solid var(--hair-strong); border-radius: var(--radius-control);
+  padding: var(--pad-btn); cursor: pointer;
+}
+
+.btn--primary { color: var(--accent-ink); --lit-base: var(--accent); --lit-tint: var(--accent); --lit-g: var(--btn-glow-primary-rest);
+  --lit-top: var(--btn-top-fill); --lit-top-hover: var(--btn-top-fill-hover); }
+
+.btn--go { color: var(--ground); --lit-base: var(--ok); --lit-tint: var(--ok); --lit-g: var(--btn-glow-rest); --lit-ring: var(--ok); }
+
+.btn--danger { color: color-mix(in srgb, var(--alert) var(--btn-danger-ink), var(--btn-light)); border-color: var(--alert); --lit-ring: var(--alert); }
+.btn--primary, .btn--go { border-color: color-mix(in srgb, var(--lit-base) 85%, var(--btn-shade)); }
+
+.btn--primary, .btn--go {
+  text-shadow: 0 var(--btn-press-y) 0 color-mix(in srgb, var(--btn-press) var(--btn-press-a), transparent);
+}
+
+@media (hover: hover) {
+
+.btn--danger:hover:not(:disabled):not([aria-disabled="true"]) { color: var(--ground);
+  --lit-base: color-mix(in srgb, var(--alert) var(--btn-danger-ink), var(--btn-light)); --lit-top-hover: 86%; --lit-tint: var(--alert); --lit-g: var(--btn-glow);
+  text-shadow: 0 var(--btn-press-y) 0 color-mix(in srgb, var(--btn-press) var(--btn-press-a), transparent); }
+
+.btn:hover:not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--ink);
+  background: linear-gradient(color-mix(in srgb, var(--lit-base) var(--lit-top-hover), var(--btn-light)), color-mix(in srgb, var(--lit-base) 90%, var(--btn-shade)));
+  translate: 0 -1px;
+  box-shadow: var(--lit-focus),
+    inset 0 1px 0 color-mix(in srgb, var(--btn-light) var(--btn-hi), transparent),
+    inset 0 -1px 2px color-mix(in srgb, var(--btn-shade) var(--btn-lo), transparent),
+    0 2px 3px color-mix(in srgb, var(--btn-shade) var(--btn-contact), transparent),
+    0 12px 28px -6px color-mix(in srgb, var(--lit-tint) var(--lit-g), transparent);
+}
+.btn--primary:hover:not(:disabled):not([aria-disabled="true"]),
+.btn--go:hover:not(:disabled):not([aria-disabled="true"]),
+.btn--danger:hover:not(:disabled):not([aria-disabled="true"]) { border-color: color-mix(in srgb, var(--lit-base) 85%, var(--btn-shade)); --lit-g: var(--btn-glow); }
+.btn--primary:hover:not(:disabled):not([aria-disabled="true"]) { --lit-g: var(--btn-glow-primary); }
+}
+
+.btn:focus-visible { outline: 2px solid transparent; outline-offset: 2px;
+  --lit-focus: 0 0 0 2px var(--ground), 0 0 0 4px var(--lit-ring); }
+
+.btn:active:not(:disabled):not([aria-disabled="true"]) {
+  translate: 0 1px;
+  box-shadow: var(--lit-focus), inset 0 2px 4px color-mix(in srgb, var(--btn-shade) 30%, transparent);
+  transition-duration: var(--motion-quick);
+}
+
+.btn:disabled, .btn[aria-disabled="true"] {
+  color: var(--ink-faint); background: color-mix(in srgb, var(--ink) 5%, transparent); border-color: transparent; cursor: not-allowed;
+  box-shadow: var(--lit-focus); translate: none; text-shadow: none;
+}
+.btn-reason { font-size: var(--fs-note); color: var(--ink-dim); }
+
+.btn > .spinner {
+  display: none; position: absolute; inset: 0; margin: auto; opacity: 0; scale: 0.8; filter: blur(2px);
+  border-color: color-mix(in srgb, currentColor 30%, transparent); border-top-color: currentColor;
+}
+.btn[aria-busy="true"] { cursor: progress; }
+.btn[aria-busy="true"] > .spinner { display: block; opacity: 1; scale: 1; filter: none; }
+.btn[aria-busy="true"] > .btn-label, .btn[aria-busy="true"] > .icon { opacity: 0; scale: 0.8; filter: blur(2px); }
+.btn[aria-busy="true"] > .icon { visibility: hidden; }
+
+.btn:not([aria-busy="true"]) > :is(.spinner, .btn-label, .icon) {
+  transition: opacity var(--motion-quick) var(--ease), scale var(--motion-quick) var(--ease), filter var(--motion-quick) var(--ease),
+    visibility var(--motion-quick), display var(--motion-quick) allow-discrete, translate var(--motion-swap) var(--ease);
+}
+.btn[aria-busy="true"]:hover { translate: none; }
+
+.btn .icon { width: 1em; height: 1em; flex: none; color: currentColor; }
+
+@media print {
+  .btn { background-image: none; box-shadow: none; text-shadow: none; translate: none; }
+  .btn:not(:disabled):not([aria-disabled="true"]) { background-color: var(--lit-base); }
+}
+
+.btn-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); justify-content: flex-start; }
+.btn-row--end { justify-content: flex-end; }

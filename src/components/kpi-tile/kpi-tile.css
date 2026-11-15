@@ -1,0 +1,120 @@
+/* KPI tile. A band (.kpis) of tiles (.kpi), each a count with its label: .kpi-v (figure), optional .kpi-d (change,
+   in words), .kpi-l (label), optional .kpi-n (unit, population or period). A tile that opens its items is an <a>;
+   a figure that opens nothing is a div with tabindex="0" so keyboard users reach its definition.
+   data-tip is the definition: shown on hover and focus, and given to screen readers as the tile's description.
+   data-spark="v1,v2,..." (oldest first) draws a sparkline wash behind the text; a blank or non-number is a gap.
+   States: .kpi--warn, .kpi--alert, .kpi--ok (colour the edge, glow and wash; say the state in words too), .kpi--zero,
+   .kpi--loading (with aria-busy="true"), .kpi--error, .kpi--missing (put a word in .sr-only inside .kpi-v).
+   A figure shows at most 10 characters: abbreviate a longer one and put the full value in its aria-label.
+   The band wraps on its own width; tiles never shrink below --kpi-min (10rem). */
+.kpis {
+
+  --kpi-min: 10rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--kpi-min)), 1fr)); gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+}
+
+.kpis-cap { margin: 0 0 var(--space-2); font-size: var(--fs-note); color: var(--ink-dim); }
+.kpi {
+
+  --kpi-on: var(--lift-k);
+  --kpi-edge: var(--hair-strong);
+
+  --kpi-hi: light-dark(color-mix(in srgb, var(--btn-light) 80%, transparent), color-mix(in srgb, var(--btn-light) 12%, transparent));
+  --kpi-glow: color-mix(in srgb, var(--ink) calc(14% * var(--kpi-on)), transparent);
+  --kpi-wash: .7; --kpi-wash-hover: .82; --kpi-crest: var(--ink-faint);
+  --kpi-t: calc(var(--motion-state) * 1.5) var(--motion-move-ease);
+  position: relative; isolation: isolate; container-type: inline-size;
+  display: flex; flex-direction: column; gap: var(--space-1); min-width: 0;
+  padding: var(--pad-box); color: var(--ink-body); text-decoration: none;
+  background: var(--panel); border: 1px solid var(--hair); border-radius: var(--radius-box);
+  --depth-in: calc(var(--depth) + 1);
+  box-shadow: var(--lift);
+  transition: border-color var(--t-fast), box-shadow var(--motion-swap) var(--ease), translate var(--motion-swap) var(--ease);
+}
+
+.kpi::before { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none; background: var(--lift-rim); }
+.kpi > .kpi-v, .kpi > .kpi-d, .kpi > .kpi-l, .kpi > .kpi-n { position: relative; z-index: 1;
+  text-shadow: 0 0 2px var(--panel), 0 0 6px var(--panel), 0 0 12px var(--panel); }
+
+@media (hover: hover) {
+  a.kpi:hover { border-color: var(--hair-strong); translate: 0 calc(-2px * var(--kpi-on)); box-shadow: var(--lift-hover); }
+  a.kpi:is(.kpi--warn, .kpi--alert, .kpi--ok):hover { border-color: var(--ink-dim); }
+  a.kpi:hover .kpi-spark .area { opacity: var(--kpi-wash-hover); }
+  a.kpi:hover .kpi-spark .line { opacity: .95; }
+  a.kpi:hover .kpi-spark .glow { opacity: calc(.6 * var(--kpi-on)); }
+}
+a.kpi:focus-visible, .kpi[tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.kpi-v {
+  font-family: var(--font-body); font-size: clamp(16px, calc(144cqi / max(var(--kpi-len, 9), 9)), var(--fs-title)); font-weight: var(--fw-title); line-height: 1.1;
+  color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: visible;
+}
+.kpi > .kpi-v { text-shadow: 0 0 2px var(--panel), 0 0 6px var(--panel), 0 0 12px var(--panel), 0 2px 14px var(--kpi-glow); }
+.kpi-l { font-size: var(--fs-body); color: var(--ink); overflow-wrap: anywhere; }
+
+.kpi-d { margin-top: calc(var(--space-1) * -1); font-size: var(--fs-note); color: var(--ink-dim); overflow-wrap: anywhere; }
+.kpi-d .signed { color: var(--ink); }
+.kpi-n { font-size: var(--fs-note); color: var(--ink-dim); overflow-wrap: anywhere; }
+
+.kpi--warn { --kpi-c: var(--led-warn); --kpi-g: 38%; border-color: var(--edge-warn); }
+.kpi--alert { --kpi-c: var(--led-alert); --kpi-g: 30%; border-color: var(--edge-alert); }
+.kpi--ok { --kpi-c: var(--led-ok); --kpi-g: 34%; border-color: var(--edge-ok); }
+.kpi:is(.kpi--warn, .kpi--alert, .kpi--ok) {
+  --kpi-edge: var(--kpi-c); --kpi-crest: var(--kpi-c); --lift-tint: var(--kpi-c); --lift-s: 1.7;
+  --kpi-glow: color-mix(in srgb, var(--kpi-c) calc(var(--kpi-g) * var(--kpi-on)), transparent);
+  --kpi-wash: .176; --kpi-wash-hover: .26;
+}
+
+.kpi--zero .kpi-v { color: var(--ink-faint); }
+
+.kpi:is(.kpi--loading, .kpi--error, .kpi--missing) .kpi-v { color: var(--ink-faint); }
+.kpi:is(.kpi--error, .kpi--missing) .kpi-v::before { content: "--" / ""; }
+.kpi--loading .kpi-v::before {
+  content: "" / ""; display: block; width: min(5ch, 100%); height: 1lh; border-radius: var(--radius-control);
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  animation: kpi-wait calc(var(--motion-state) * 6) var(--ease) infinite alternate;
+}
+@keyframes kpi-wait { to { opacity: .45; } }
+.kpi[aria-busy="true"] { cursor: progress; }
+@media (prefers-reduced-motion: reduce) { .kpi--loading .kpi-v::before { animation: none; } }
+
+.kpi:is([data-spark], .kpi--spark) { --kpi-spark-h: 55%; --kpi-spark-room: 0px; padding-bottom: calc(var(--pad-box) + var(--kpi-spark-room)); }
+.kpi--spark { background: linear-gradient(to bottom, var(--panel) 60%,
+  light-dark(color-mix(in srgb, var(--panel), var(--btn-shade) calc(2.5% * var(--kpi-on))), color-mix(in srgb, var(--panel), var(--btn-shade) calc(25% * var(--kpi-on))))); }
+.kpi-spark {
+  position: absolute; z-index: 0; inset: auto 0 0 0; width: 100%; height: var(--kpi-spark-h); overflow: visible; pointer-events: none;
+  color: var(--kpi-edge);
+
+  clip-path: inset(-40px 0 0 0 round 0 0 var(--radius-box) var(--radius-box));
+  -webkit-mask: linear-gradient(to right, var(--btn-shade) 40%, transparent 60%) 0 0 / 250% 100% no-repeat;
+  mask: linear-gradient(to right, var(--btn-shade) 40%, transparent 60%) 0 0 / 250% 100% no-repeat;
+  animation: kpi-spark-in calc(var(--motion-state) * 3) var(--ease) both; animation-delay: calc(var(--kpi-i, 0) * 90ms + 120ms);
+}
+@keyframes kpi-spark-in {
+  from { -webkit-mask-position: 100% 0; mask-position: 100% 0; opacity: .2; }
+  to { -webkit-mask-position: 0 0; mask-position: 0 0; opacity: 1; }
+}
+.kpi-spark .area { opacity: var(--kpi-wash); transition: opacity var(--kpi-t); }
+.kpi-spark .wash-top { stop-color: currentColor; stop-opacity: .55; }
+.kpi-spark .wash-bot { stop-color: currentColor; stop-opacity: 1; }
+.kpi-spark :is(.line, .hi, .glow, .dot) { fill: none; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
+.kpi-spark .line { stroke: var(--kpi-crest); stroke-width: .6; opacity: .72; transition: opacity var(--kpi-t); }
+
+.kpi-spark .dot { stroke: var(--kpi-crest); stroke-width: 4; opacity: .85; }
+.kpi-spark .hi { stroke: var(--kpi-hi); stroke-width: .5; opacity: var(--kpi-on); transform: translateY(-.8px); }
+
+.kpi-spark .glow { stroke: currentColor; stroke-width: 3; filter: blur(4px); transform: translateY(3px);
+  opacity: calc(.3 * var(--kpi-on)); transition: opacity var(--kpi-t); }
+@media (prefers-reduced-motion: reduce) { a.kpi:hover { translate: none; } .kpi-spark { animation: none; } }
+@media print { .kpi-spark { animation: none; } }
+
+.kpi[data-tip]::after {
+  content: attr(data-tip) / ""; position: absolute; z-index: 2; inset: auto auto calc(100% + var(--space-1)) 0; width: max-content; max-width: min(28ch, 100%);
+  padding: var(--space-1) var(--space-2); border-radius: var(--radius-control); background: var(--ink); color: var(--ground);
+  font-size: var(--fs-note); line-height: 1.35; text-shadow: none; pointer-events: none; opacity: 0; translate: 0 2px;
+  transition: opacity var(--t-fast), translate var(--t-fast);
+}
+.kpi[data-tip]:is(:hover, :focus-visible)::after { opacity: 1; translate: 0 0; transition-delay: var(--motion-tip-delay); }
+.kpi[data-tip]:focus-visible::after { transition-delay: 0ms; }
+@media print { .kpi[data-tip]::after { display: none; } }

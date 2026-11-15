@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button · ui</title>
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../shared/spinner.css">
+<link rel="stylesheet" href="button.css">
+<script src="button.js" defer></script>
+<style>
+  body { margin: 0; padding: var(--space-4) 16px; background: var(--ground); color: var(--ink-body); font: var(--fs-body)/1.5 var(--font-body); }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { color: var(--ink); font-size: 20px; font-weight: 600; margin: 0 0 var(--space-2); }
+  h2 { color: var(--ink-dim); font-size: var(--fs-note); font-weight: 500; margin: var(--space-4) 0 var(--space-2); }
+  .demo-bar { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; border-bottom: 1px solid var(--hair); padding-bottom: var(--space-3); }
+  .demo-bar label { font-size: var(--fs-note); color: var(--ink-dim); }
+  output { font-size: var(--fs-note); color: var(--ink-dim); }
+</style>
+</head>
+<body>
+<main>
+  <div class="demo-bar">
+    <h1>Button</h1>
+    <label>Theme <select id="theme"><option value="">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  </div>
+
+  <h2 id="variants">Variants</h2>
+  <div class="btn-row">
+    <button type="button" class="btn btn--primary">Publish draft</button>
+    <button type="button" class="btn">Save</button>
+    <button type="button" class="btn btn--danger">Delete</button>
+  </div>
+
+  <h2>Confirm or finish: go takes the primary's place (one filled button per view)</h2>
+  <div class="btn-row">
+    <button type="button" class="btn btn--go">Sign off</button>
+    <button type="button" class="btn">Save</button>
+  </div>
+
+  <h2>With an icon</h2>
+  <div class="btn-row">
+    <button type="button" class="btn"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13.5h10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 2.5v7.5M4.5 6.5 8 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Download PDF</button>
+    <button type="button" class="btn btn--primary">Continue <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    <button type="button" class="btn"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13.5h10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 10.5V3M4.5 6.5 8 3l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Import file</button>
+    <button type="button" class="btn"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M14 2 2 7l5 2 2 5zM14 2 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Share with…</button>
+  </div>
+
+  <h2>Disabled, with its reason</h2>
+  <div class="btn-row">
+    <button type="button" class="btn btn--go" disabled aria-describedby="why-1">Sign off</button>
+    <span class="btn-reason" id="why-1">Two checks are still open.</span>
+  </div>
+
+  <h2>Busy: the spinner takes the label's place, same width</h2>
+  <div class="btn-row" id="busy">
+    <button type="button" class="btn btn--primary" aria-busy="true"><span class="spinner" aria-hidden="true"></span><span class="btn-label">Publish draft</span></button>
+    <button type="button" class="btn" aria-busy="true"><span class="spinner" aria-hidden="true"></span><span class="btn-label">Save</span></button>
+  </div>
+
+  <h2>Press guard: a busy or aria-disabled .btn ignores presses; other buttons don't</h2>
+  <div class="btn-row" id="guard">
+    <button type="button" class="btn btn--primary" id="try-save"><span class="spinner" aria-hidden="true"></span><span class="btn-label">Save (busy for 2s)</span></button>
+    <button type="button" class="btn" id="try-locked" aria-disabled="true" aria-describedby="why-2">Export</button>
+    <span class="btn-reason" id="why-2">Nothing selected yet.</span>
+  </div>
+  <p><output id="presses" aria-live="polite">Presses handled: 0</output></p>
+
+  <h2>Placement: page left, primary first · dialog right, Cancel then OK</h2>
+  <div class="btn-row">
+    <button type="button" class="btn btn--primary">Run</button>
+    <button type="button" class="btn">Preview</button>
+  </div>
+  <div class="btn-row btn-row--end">
+    <button type="button" class="btn">Cancel</button>
+    <button type="button" class="btn btn--danger">Delete 3 rows</button>
+  </div>
+</main>
+<script>
+  const theme = document.getElementById('theme')
+  theme.addEventListener('change', () => { theme.value ? document.documentElement.dataset.theme = theme.value : delete document.documentElement.dataset.theme })
+  let n = 0
+  const out = document.getElementById('presses')
+  const save = document.getElementById('try-save')
+  save.addEventListener('click', () => {
+    out.textContent = `Presses handled: ${++n}`
+    save.setAttribute('aria-busy', 'true')
+    setTimeout(() => save.removeAttribute('aria-busy'), 2000)
+  })
+  document.getElementById('try-locked').addEventListener('click', () => { out.textContent = `Presses handled: ${++n}` })
+</script>
+</body>
+</html>

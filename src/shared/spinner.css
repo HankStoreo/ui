@@ -1,0 +1,9 @@
+/* Spinner: a ring with a coloured arc. Used inside a busy .btn; works on its own too.
+   Under reduced motion the spin duration is 0ms, so the ring stands still. */
+
+.spinner {
+  display: inline-block; flex: none; width: 13px; height: 13px; vertical-align: -2px;
+  border: 2px solid var(--hair-strong); border-top-color: var(--led-warn); border-radius: 50%;
+  animation: ui-spin var(--motion-spin) linear infinite;
+}
+@keyframes ui-spin { to { transform: rotate(360deg); } }

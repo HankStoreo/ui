@@ -1,0 +1,162 @@
+/* ui tokens: the custom properties the components read. Generated from the source kit; do not edit by hand.
+   Light by default; dark follows the system, or set data-theme="dark" (or "light") on <html> to choose.
+   Reduced motion sets every duration to 0ms. --depth counts how deeply a raised surface is nested, so a tile
+   inside a raised box lifts less. */
+
+:root {
+  --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --motion-move-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-quick: 180ms;
+  --motion-swap: 300ms;
+  --motion-state: 420ms;
+  --motion-spin: 800ms;
+  --motion-tip-delay: 400ms;
+  --led-ok: #22D36B;
+  --led-warn: #FFC61A;
+  --led-alert: #FF3B3B;
+  --ease: var(--motion-ease);
+  --t-fast: var(--motion-quick) var(--motion-ease);
+  --edge-warn: color-mix(in srgb, var(--led-warn) 80%, var(--panel));
+  --edge-ok: color-mix(in srgb, var(--led-ok) 80%, var(--panel));
+  --edge-alert: color-mix(in srgb, var(--led-alert) 80%, var(--panel));
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --pad-box: 16px;
+  --pad-btn: var(--space-2) var(--space-3);
+  --ground: #FFFFFF;
+  --panel: #FFFFFF;
+  --ink: #0B0B0B;
+  --ink-body: #222222;
+  --ink-dim: #55544F;
+  --ink-faint: #706F6A;
+  --hair: #E5E4E0;
+  --hair-strong: #C8C7C1;
+  --accent: #0B0B0B;
+  --accent-ink: #FFFFFF;
+  --ok: #1E7A33;
+  --alert: #AE2E24;
+  --btn-light: var(--ground);
+  --btn-shade: var(--ink);
+  --btn-press: var(--btn-shade);
+  --btn-press-y: -1px;
+  --btn-base: color-mix(in srgb, var(--panel), var(--ink) var(--btn-raise));
+  --btn-hi: 35%;
+  --btn-lo: 8%;
+  --btn-contact: 18%;
+  --btn-glow: 55%;
+  --btn-glow-rest: 20%;
+  --btn-glow-quiet: 14%;
+  --btn-press-a: 45%;
+  --btn-top-fill: 74%;
+  --btn-top-fill-hover: 66%;
+  --btn-raise: 0%;
+  --btn-glow-primary-rest: 0%;
+  --btn-glow-primary: 22%;
+  --btn-danger-ink: 100%;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --fs-body: 13px;
+  --fs-note: 11.5px;
+  --fs-title: clamp(22px, 2.2vw, 34px);
+  --fw-title: 300;
+  --fw-mid: 500;
+  --radius-control: 3px;
+  --radius-box: 8px;
+  --raise-on: 1;
+  --raise-step: 0.6;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --ground: #08090B;
+  --panel: #121419;
+  --ink: #E4E5E7;
+  --ink-body: #C6C8CC;
+  --ink-dim: #A7A9AF;
+  --ink-faint: #8A8C93;
+  --hair: #1D1F25;
+  --hair-strong: #363940;
+  --accent: #E4E5E7;
+  --accent-ink: #08090B;
+  --ok: #4FB783;
+  --alert: #E0574F;
+  --btn-light: var(--ink);
+  --btn-shade: var(--ground);
+  --btn-press: var(--btn-light);
+  --btn-press-y: 1px;
+  --btn-base: color-mix(in srgb, var(--panel), var(--ink) var(--btn-raise));
+  --btn-hi: 30%;
+  --btn-lo: 25%;
+  --btn-contact: 70%;
+  --btn-glow: 18%;
+  --btn-glow-rest: 6%;
+  --btn-glow-quiet: 0%;
+  --btn-press-a: 35%;
+  --btn-top-fill: 86%;
+  --btn-top-fill-hover: 78%;
+  --btn-raise: 7%;
+  --btn-glow-primary-rest: 0%;
+  --btn-glow-primary: 18%;
+  --btn-danger-ink: 50%;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #08090B;
+    --panel: #121419;
+    --ink: #E4E5E7;
+    --ink-body: #C6C8CC;
+    --ink-dim: #A7A9AF;
+    --ink-faint: #8A8C93;
+    --hair: #1D1F25;
+    --hair-strong: #363940;
+    --accent: #E4E5E7;
+    --accent-ink: #08090B;
+    --ok: #4FB783;
+    --alert: #E0574F;
+    --btn-light: var(--ink);
+    --btn-shade: var(--ground);
+    --btn-press: var(--btn-light);
+    --btn-press-y: 1px;
+    --btn-base: color-mix(in srgb, var(--panel), var(--ink) var(--btn-raise));
+    --btn-hi: 30%;
+    --btn-lo: 25%;
+    --btn-contact: 70%;
+    --btn-glow: 18%;
+    --btn-glow-rest: 6%;
+    --btn-glow-quiet: 0%;
+    --btn-press-a: 35%;
+    --btn-top-fill: 86%;
+    --btn-top-fill-hover: 78%;
+    --btn-raise: 7%;
+    --btn-glow-primary-rest: 0%;
+    --btn-glow-primary: 18%;
+    --btn-danger-ink: 50%;
+    color-scheme: dark;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-quick: 0ms;
+    --motion-swap: 0ms;
+    --motion-state: 0ms;
+    --motion-spin: 0ms;
+  }
+}
+@property --depth { syntax: '<integer>'; inherits: true; initial-value: 0; }
+@property --depth-in { syntax: '<integer>'; inherits: true; initial-value: 0; }
+@container style(--depth-in: 1) { * { --depth: 1; } }
+@container style(--depth-in: 2) { * { --depth: 2; } }
+@container style(--depth-in: 3) { * { --depth: 3; } }
+@container style(--depth-in: 4) { * { --depth: 4; } }
+@container style(--depth-in: 5) { * { --depth: 5; } }
+@container style(--depth-in: 6) { * { --depth: 6; } }
+:root, * {
+  --raise-k: calc(var(--raise-on) * pow(var(--raise-step), var(--depth)));
+  --lift-tint: var(--btn-shade);
+  --lift-s: 1;
+  --lift-k: var(--raise-k);
+  --lift: 0 0.5px 0.5px color-mix(in srgb, var(--btn-shade) calc(4% * var(--lift-k)), transparent), 0 1px 2px color-mix(in srgb, var(--btn-shade) calc(5% * var(--lift-k)), transparent), 0 4px 8px -2px color-mix(in srgb, var(--lift-tint) calc(6% * var(--lift-s) * var(--lift-k)), transparent), 0 12px 24px -6px color-mix(in srgb, var(--lift-tint) calc(10% * var(--lift-s) * var(--lift-k)), transparent), 0 24px 48px -12px color-mix(in srgb, var(--lift-tint) calc(10% * var(--lift-s) * var(--lift-k)), transparent);
+  --lift-hover: 0 0.5px 0.5px color-mix(in srgb, var(--btn-shade) calc(4% * var(--lift-k)), transparent), 0 1px 2px color-mix(in srgb, var(--btn-shade) calc(5% * var(--lift-k)), transparent), 0 6px 12px -2px color-mix(in srgb, var(--lift-tint) calc(7% * var(--lift-s) * var(--lift-k)), transparent), 0 18px 32px -8px color-mix(in srgb, var(--lift-tint) calc(14% * var(--lift-s) * var(--lift-k)), transparent), 0 32px 60px -14px color-mix(in srgb, var(--lift-tint) calc(16% * var(--lift-s) * var(--lift-k)), transparent);
+  --lift-rim: linear-gradient(90deg, transparent, light-dark(color-mix(in srgb, var(--btn-light) calc(90% * var(--lift-k)), transparent), color-mix(in srgb, var(--btn-light) calc(16% * var(--lift-k)), transparent)) 50%, transparent) top / 100% 1px no-repeat, linear-gradient(150deg, light-dark(color-mix(in srgb, var(--btn-light) calc(55% * var(--lift-k)), transparent), color-mix(in srgb, var(--btn-light) calc(3.5% * var(--lift-k)), transparent)), transparent 38%);
+}

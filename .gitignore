@@ -1,0 +1,24 @@
+# OS and editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Dependencies and builds
+node_modules/
+dist/
+coverage/
+.cache/
+
+# Test output
+test-results/
+playwright-report/
+
+# Local and secret files: never commit
+.env
+.env.*
+*.local
+.stfolder
+.stignore
+.stversions/
