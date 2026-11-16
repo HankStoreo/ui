@@ -62,6 +62,8 @@ npm test
 
 The tests run every component test and every demo page (including an axe accessibility scan in light and dark) in Chromium, Firefox and WebKit.
 
+Lint with `npm run lint` ([Biome](https://biomejs.dev), recommended rules, warnings fail). It covers the components' CSS and JavaScript, the tests and the media script. The inline scripts in the demo pages aren't linted, because Biome's HTML support is partial. CI runs the lint and the tests on every push and pull request.
+
 The gifs and videos in `docs/media/` are recorded from the demo pages by `npm run media` (needs ffmpeg). Rerun it after any visual change.
 
 ## Licence

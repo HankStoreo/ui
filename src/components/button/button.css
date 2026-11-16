@@ -81,6 +81,8 @@
 }
 .btn-reason { font-size: var(--fs-note); color: var(--ink-dim); }
 
+.btn .icon { width: 1em; height: 1em; flex: none; color: currentColor; }
+
 .btn > .spinner {
   display: none; position: absolute; inset: 0; margin: auto; opacity: 0; scale: 0.8; filter: blur(2px);
   border-color: color-mix(in srgb, currentColor 30%, transparent); border-top-color: currentColor;
@@ -95,8 +97,6 @@
     visibility var(--motion-quick), display var(--motion-quick) allow-discrete, translate var(--motion-swap) var(--ease);
 }
 .btn[aria-busy="true"]:hover { translate: none; }
-
-.btn .icon { width: 1em; height: 1em; flex: none; color: currentColor; }
 
 @media print {
   .btn { background-image: none; box-shadow: none; text-shadow: none; translate: none; }

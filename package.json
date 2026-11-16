@@ -1,14 +1,16 @@
 {
   "name": "ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Plain CSS and JavaScript UI components: no framework, no build step. Dev dependencies are for the tests only.",
   "license": "MIT",
   "scripts": {
     "test": "playwright test",
+    "lint": "biome lint --error-on-warnings",
     "media": "node docs/capture-media.js"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.6.4",
     "@playwright/test": "1.63.0",
     "axe-core": "4.10.3"
   }

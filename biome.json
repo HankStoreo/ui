@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": { "enabled": false },
+  "files": {
+    "includes": [
+      "src/**/*.js",
+      "src/**/*.css",
+      "test/**/*.js",
+      "docs/capture-media.js",
+      "playwright.config.js"
+    ]
+  },
+  "formatter": { "enabled": false },
+  "assist": { "enabled": false },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "suspicious": { "noAssignInExpressions": "off" }
+    }
+  },
+  "css": { "linter": { "enabled": true } },
+  "javascript": { "linter": { "enabled": true } },
+  "overrides": [
+    {
+      "includes": ["src/**/*.js", "!src/**/*.test.js"],
+      "linter": { "domains": { "playwright": "none" } }
+    }
+  ]
+}

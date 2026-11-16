@@ -91,7 +91,7 @@
   function kpiSpark(root = document) {
     root.querySelectorAll('.kpi > .kpi-v').forEach(measure)
     root.querySelectorAll('div.kpi[tabindex]').forEach(name)
-    root.querySelectorAll('.kpis').forEach((band) => [...band.querySelectorAll(':scope > .kpi')].forEach((t, i) => t.style.setProperty('--kpi-i', i)))
+    root.querySelectorAll('.kpis').forEach((band) => { [...band.querySelectorAll(':scope > .kpi')].forEach((t, i) => { t.style.setProperty('--kpi-i', i) }) })
     root.querySelectorAll('.kpi[data-spark], .kpi--spark').forEach(draw)
     root.querySelectorAll('.kpi[data-tip]').forEach(describe)
   }

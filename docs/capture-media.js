@@ -156,7 +156,7 @@ const hideRest = (target) => target.evaluate((el) => {
 })
 // The union of the target's children: a row's own box spans the page width, its buttons don't.
 async function contentBox(target) {
-  const boxes = (await Promise.all((await target.locator(':scope > *').all()).map((c) => c.boundingBox()))).filter((b) => b && b.width)
+  const boxes = (await Promise.all((await target.locator(':scope > *').all()).map((c) => c.boundingBox()))).filter((b) => b?.width)
   const x = Math.min(...boxes.map((b) => b.x)), y = Math.min(...boxes.map((b) => b.y))
   return { x, y, width: Math.max(...boxes.map((b) => b.x + b.width)) - x, height: Math.max(...boxes.map((b) => b.y + b.height)) - y }
 }
@@ -208,7 +208,7 @@ function encode(clip, { frames, start, end, box }) {
   const before = frames.filter((f) => f.t < start).pop()
   if (before && !clip.reload) kept.unshift({ ...before, t: start })
   if (!kept.length) throw new Error(`${clip.name}: no frames captured`)
-  kept.forEach((f, i) => writeFileSync(join(dir, `${String(i).padStart(5, '0')}.png`), Buffer.from(f.data, 'base64')))
+  kept.forEach((f, i) => { writeFileSync(join(dir, `${String(i).padStart(5, '0')}.png`), Buffer.from(f.data, 'base64')) })
   let list = 'ffconcat version 1.0\n'
   kept.forEach((f, i) => { list += `file '${String(i).padStart(5, '0')}.png'\nduration ${(((kept[i + 1]?.t ?? end) - f.t)).toFixed(4)}\n` })
   list += `file '${String(kept.length - 1).padStart(5, '0')}.png'\n`
@@ -226,7 +226,7 @@ function encode(clip, { frames, start, end, box }) {
   execFileSync('gifski', ['--quiet', '--fps', String(FPS), '--quality', '92', '--width', String(gifW), '-o', join(OUT, `${clip.name}.gif`), ...pngs])
   execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-framerate', String(FPS), '-i', join(seq, '%05d.png'), '-vf', `scale=${even(gifW)}:-2:flags=lanczos`, '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '16', '-movflags', '+faststart', '-an', join(OUT, `${clip.name}.mp4`)])
   const kb = (f) => Math.round(statSync(join(OUT, f)).size / 1024)
-  console.log(`${clip.name}: ${(end - start).toFixed(1)}s, ${kept.length} captured frames (${(kept.length / (end - start)).toFixed(0)}/s), ${gifW}px, gif ${kb(clip.name + '.gif')} KB, mp4 ${kb(clip.name + '.mp4')} KB`)
+  console.log(`${clip.name}: ${(end - start).toFixed(1)}s, ${kept.length} captured frames (${(kept.length / (end - start)).toFixed(0)}/s), ${gifW}px, gif ${kb(`${clip.name}.gif`)} KB, mp4 ${kb(`${clip.name}.mp4`)} KB`)
 }
 
 ;(async () => {
