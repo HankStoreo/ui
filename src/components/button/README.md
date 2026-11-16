@@ -71,6 +71,8 @@ Busy: wrap the label in `.btn-label` and add a spinner. Then set `aria-busy="tru
 - **Hover:** the lift and glow apply only where a pointer can hover, so a tap doesn't leave the button lifted. A directional icon nudges 2px its way, but not on a disabled or busy button.
 
   <img src="../../../docs/media/button-icons.gif" alt="Hovering buttons with icons: each arrow nudges the way its action goes (down to download, forward to continue, up to import, out to share)." width="562">
+
+  <img src="../../../docs/media/button-icons-all.gif" alt="Hovering buttons in light and then dark mode: back slides left, refresh turns, add turns a quarter and next slides right." width="484">
 - **Reduced motion:** transitions and the spinner stop.
 - **Print:** a flat fill with no shadows.
 - **Contrast:** in dark mode, the danger label is lightened so it stays at or above 4.5:1 against both ends of the gradient.

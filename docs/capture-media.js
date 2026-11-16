@@ -71,6 +71,18 @@ const CLIPS = [
     },
   },
   {
+    name: 'button-icons-all', page: 'button', crop: '#icons-more', alt: 'Hovering buttons in light and then dark mode: back slides left, refresh turns, add turns a quarter and next slides right.',
+    async run(page) {
+      const sels = ['#icons-more .btn:has(.icon--back)', '#icons-more .btn:has(.icon--turn)', '#icons-more .btn:has(.icon--add)', '#icons-more .btn:has(.icon--next)']
+      await sleep(300)
+      for (const sel of sels) { await glide(page, sel, 560); await sleep(700) }
+      await away(page); await sleep(300)
+      await setTheme(page, 'dark'); await sleep(700)
+      for (const sel of sels) { await glide(page, sel, 560); await sleep(700) }
+      await away(page); await sleep(500)
+    },
+  },
+  {
     name: 'button-busy', page: 'button', crop: '#guard', alt: 'Clicking Save: a spinner replaces the label for two seconds, the button keeps its width, and repeat clicks are ignored.',
     async run(page) {
       await glide(page, '#try-save'); await sleep(350)
@@ -113,6 +125,17 @@ const CLIPS = [
       await away(page); await sleep(300)
       await setTheme(page, 'dark'); await sleep(900)
       for (const s of ["warn", "alert", "ok"]) { await glide(page, `.kpi--${s}`, 520, TILE); await sleep(1000) }
+      await away(page); await sleep(600)
+    },
+  },
+  {
+    name: 'kpi-colour-spark', page: 'kpi-tile', crop: '#colour-spark', padTop: 70, reload: true, alt: 'Coloured KPI tiles (healthy, low battery, offline, all passed) whose sparklines draw in, then each lifts on hover, in light and then dark mode.',
+    async run(page) {
+      await sleep(1500)
+      for (const n of [1, 2, 3]) { await glide(page, `#colour-spark > a.kpi:nth-of-type(${n})`, 520, TILE); await sleep(1000) }
+      await away(page); await sleep(300)
+      await setTheme(page, 'dark'); await sleep(900)
+      for (const n of [2, 3, 4]) { await glide(page, `#colour-spark > a.kpi:nth-of-type(${n})`, 520, TILE); await sleep(1000) }
       await away(page); await sleep(600)
     },
   },

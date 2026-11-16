@@ -65,7 +65,7 @@ test('each figure is sized by its length, leaving out any .sr-only word', async 
 test('every tile with data-tip is described by it', async ({ page }) => {
   const tiles = page.locator('.kpi[data-tip]')
   const n = await tiles.count()
-  expect(n).toBe(19)
+  expect(n).toBe(23)
   for (let i = 0; i < n; i++) {
     const tip = await tiles.nth(i).getAttribute('data-tip')
     await expect(tiles.nth(i)).toHaveAccessibleDescription(tip)

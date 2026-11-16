@@ -50,6 +50,14 @@
     <a class="kpi kpi--zero" href="#bd-alerts" data-tip="Weather alerts open now"><span class="kpi-v">0</span><span class="kpi-l">Alerts open</span><span class="kpi-n">n = 0 of 40 this year</span></a>
   </div>
 
+  <h2>Colour and trend together: a state tile can carry a sparkline too</h2>
+  <div class="kpis" id="colour-spark">
+    <a class="kpi kpi--ok" href="#bd-uptime" data-tip="Share of the past 7 days every sensor was reporting" data-spark="96,97,99,98,99,100,100"><span class="kpi-v">99.8%</span><span class="kpi-d"><span class="signed">+0.4%</span> vs last week</span><span class="kpi-l">Uptime</span><span class="kpi-n">Healthy · past 7 days</span></a>
+    <a class="kpi kpi--warn" href="#bd-battery" data-tip="Sensors whose battery is below 20%" data-spark="0,0,1,1,1,2,2"><span class="kpi-v">2</span><span class="kpi-d"><span class="signed">+1</span> vs last week</span><span class="kpi-l">Low battery</span><span class="kpi-n">Needs a look · below 20%</span></a>
+    <a class="kpi kpi--alert" href="#bd-offline" data-tip="Sensors that sent nothing in the past hour" data-spark="0,0,0,1,0,2,1"><span class="kpi-v">1</span><span class="kpi-d"><span class="signed">+1</span> vs yesterday</span><span class="kpi-l">Offline</span><span class="kpi-n">Not reporting · past hour</span></a>
+    <a class="kpi kpi--ok" href="#bd-checked" data-tip="Days whose readings passed the daily check this month" data-spark="24,25,26,27,28,29,30"><span class="kpi-v">30</span><span class="kpi-d"><span class="signed">+1</span> vs yesterday</span><span class="kpi-l">Days checked</span><span class="kpi-n">All passed · this month</span></a>
+  </div>
+
   <h2>Static figures: nothing to open, so no hover; focusable for the definition</h2>
   <div class="kpis" id="static">
     <div class="kpi" tabindex="0" data-tip="Hours of sunshine recorded today"><span class="kpi-v">8 h</span><span class="kpi-l">Sunshine today</span><span class="kpi-n">since sunrise</span></div>

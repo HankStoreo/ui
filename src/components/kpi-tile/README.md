@@ -66,6 +66,8 @@ The script watches the page, so tiles that React adds or changes are handled aut
 
 <img src="../../../docs/media/kpi-colours.gif" alt="KPI tiles coloured by state (low battery, offline, all passed, none open), in light and then dark mode: each lifts on hover and shows its definition." width="600">
 
+<img src="../../../docs/media/kpi-colour-spark.gif" alt="Coloured KPI tiles (healthy, low battery, offline, all passed) whose sparklines draw in, then each lifts on hover, in light and then dark mode." width="600">
+
 <img src="../../../docs/media/kpi-states.gif" alt="KPI tile states: loading pulses, couldn't load and no value show a dash, and a long value is abbreviated with the full figure in its definition." width="600">
 
 ## Behaviour and accessibility
