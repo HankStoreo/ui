@@ -51,8 +51,10 @@
     const dots = runs.filter((run) => run.length === 1).map(([[x, y]]) => `M${f(x)},${f(y)}h0`).join('')
     const id = `kpi-spark-${++n}`
     tile.insertAdjacentHTML('afterbegin', `<svg class="kpi-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true" focusable="false">` +
-      `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop class="wash-top" offset="0"/><stop class="wash-bot" offset="1"/></linearGradient></defs>` +
-      (area ? `<path class="area" d="${area}" fill="url(#${id})"/><path class="glow" d="${line}"/><path class="hi" d="${line}"/><path class="line" d="${line}"/>` : '') +
+      `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop class="wash-top" offset="0"/><stop class="wash-bot" offset="1"/></linearGradient>` +
+
+      `<filter id="${id}-g" filterUnits="userSpaceOnUse" x="-10" y="-20" width="${W + 20}" height="${H + 40}"><feGaussianBlur stdDeviation="2"/></filter></defs>` +
+      (area ? `<path class="area" d="${area}" fill="url(#${id})"/><path class="glow" d="${line}" filter="url(#${id}-g)"/><path class="hi" d="${line}"/><path class="line" d="${line}"/>` : '') +
       (dots ? `<path class="dot" d="${dots}"/>` : '') + '</svg>')
     tile.firstElementChild.dataset.series = raw
     tile.classList.add('kpi--spark')

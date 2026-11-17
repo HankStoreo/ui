@@ -62,9 +62,9 @@ const CLIPS = [
     },
   },
   {
-    name: 'button-icons', page: 'button', crop: '.btn-row:has(.icon--next)', alt: 'Hovering buttons with icons: each arrow nudges the way its action goes (down to download, forward to continue, up to import, out to share).',
+    name: 'button-icons', page: 'button', crop: '.btn-row:not(#icons-more):has(.icon--next)', alt: 'Hovering buttons with icons: each arrow nudges the way its action goes (down to download, forward to continue, up to import, out to share).',
     async run(page) {
-      for (const sel of ['.btn:has(.icon-move)', '.btn:has(.icon--next)', '.btn:has(.icon--up)', '.btn:has(.icon--out)']) {
+      for (const sel of ['.btn:has(.icon-move)', '.btn-row:not(#icons-more) .btn:has(.icon--next)', '.btn:has(.icon--up)', '.btn:has(.icon--out)']) {
         await glide(page, sel, 600); await sleep(750)
       }
       await away(page); await sleep(500)
@@ -118,13 +118,13 @@ const CLIPS = [
     },
   },
   {
-    name: 'kpi-colours', page: 'kpi-tile', crop: '.kpis:has(.kpi--warn)', padTop: 70, alt: 'KPI tiles coloured by state (low battery, offline, all passed, none open), in light and then dark mode: each lifts on hover and shows its definition.',
+    name: 'kpi-colours', page: 'kpi-tile', crop: '.kpis:not(#colour-spark):has(.kpi--warn)', padTop: 70, alt: 'KPI tiles coloured by state (low battery, offline, all passed, none open), in light and then dark mode: each lifts on hover and shows its definition.',
     async run(page) {
       await sleep(500)
-      for (const s of ["warn", "alert", "ok"]) { await glide(page, `.kpi--${s}`, 520, TILE); await sleep(1000) }
+      for (const s of ["warn", "alert", "ok"]) { await glide(page, `.kpis:not(#colour-spark) .kpi--${s}`, 520, TILE); await sleep(1000) }
       await away(page); await sleep(300)
       await setTheme(page, 'dark'); await sleep(900)
-      for (const s of ["warn", "alert", "ok"]) { await glide(page, `.kpi--${s}`, 520, TILE); await sleep(1000) }
+      for (const s of ["warn", "alert", "ok"]) { await glide(page, `.kpis:not(#colour-spark) .kpi--${s}`, 520, TILE); await sleep(1000) }
       await away(page); await sleep(600)
     },
   },

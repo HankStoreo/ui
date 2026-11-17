@@ -84,7 +84,10 @@ a.kpi:focus-visible, .kpi[tabindex]:focus-visible { outline: 2px solid var(--acc
 .kpi--spark { background: linear-gradient(to bottom, var(--panel) 60%,
   light-dark(color-mix(in srgb, var(--panel), var(--btn-shade) calc(2.5% * var(--kpi-on))), color-mix(in srgb, var(--panel), var(--btn-shade) calc(25% * var(--kpi-on))))); }
 .kpi-spark {
-  position: absolute; z-index: 0; inset: auto 0 0 0; width: 100%; height: var(--kpi-spark-h); overflow: visible; pointer-events: none;
+
+  position: absolute; z-index: 0; inset: auto -1px -1px -1px; width: calc(100% + 2px); max-width: none;
+  height: calc(var(--kpi-spark-h) + 1px);
+  overflow: visible; pointer-events: none;
   color: var(--kpi-edge);
 
   clip-path: inset(-40px 0 0 0 round 0 0 var(--radius-box) var(--radius-box));
@@ -105,7 +108,7 @@ a.kpi:focus-visible, .kpi[tabindex]:focus-visible { outline: 2px solid var(--acc
 .kpi-spark .dot { stroke: var(--kpi-crest); stroke-width: 4; opacity: .85; }
 .kpi-spark .hi { stroke: var(--kpi-hi); stroke-width: .5; opacity: var(--kpi-on); transform: translateY(-.8px); }
 
-.kpi-spark .glow { stroke: currentColor; stroke-width: 3; filter: blur(4px); transform: translateY(3px);
+.kpi-spark .glow { stroke: currentColor; stroke-width: 3; transform: translateY(3px);
   opacity: calc(.3 * var(--kpi-on)); transition: opacity var(--kpi-t); }
 @media (prefers-reduced-motion: reduce) { a.kpi:hover { translate: none; } .kpi-spark { animation: none; } }
 @media print { .kpi-spark { animation: none; } }
