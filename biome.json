@@ -7,24 +7,31 @@
       "src/**/*.css",
       "test/**/*.js",
       "docs/capture-media.js",
+      "scripts/**/*.js",
       "playwright.config.js"
     ]
   },
-  "formatter": { "enabled": false },
+  "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2, "lineWidth": 120 },
   "assist": { "enabled": false },
   "linter": {
     "enabled": true,
     "rules": {
-      "preset": "recommended",
-      "suspicious": { "noAssignInExpressions": "off" }
+      "preset": "recommended"
     }
   },
   "css": { "linter": { "enabled": true } },
-  "javascript": { "linter": { "enabled": true } },
+  "javascript": {
+    "linter": { "enabled": true },
+    "formatter": { "quoteStyle": "single", "semicolons": "asNeeded", "arrowParentheses": "always" }
+  },
   "overrides": [
     {
       "includes": ["src/**/*.js", "!src/**/*.test.js"],
       "linter": { "domains": { "playwright": "none" } }
+    },
+    {
+      "includes": ["src/**/*.js", "src/**/*.css", "!src/**/*.test.js"],
+      "formatter": { "enabled": false }
     }
   ]
 }

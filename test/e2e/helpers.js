@@ -4,8 +4,13 @@ const demo = (name) => `http://127.0.0.1:4173/src/components/${name}/index.html`
 
 async function axe(page) {
   await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') })
-  return page.evaluate(async () => (await window.axe.run(document, { resultTypes: ['violations'] })).violations
-    .map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.map((n) => n.target.join(' ')) })))
+  return page.evaluate(async () =>
+    (await window.axe.run(document, { resultTypes: ['violations'] })).violations.map((v) => ({
+      id: v.id,
+      impact: v.impact,
+      nodes: v.nodes.map((n) => n.target.join(' ')),
+    })),
+  )
 }
 
 module.exports = { demo, axe }

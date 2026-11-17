@@ -7,11 +7,19 @@ test.beforeEach(async ({ page }) => {
   page.on('pageerror', (e) => page.errors.push(e.message))
   await page.goto(demo('kpi-tile'))
 })
-test.afterEach(async ({ page }) => { expect(page.errors).toEqual([]) })
+test.afterEach(async ({ page }) => {
+  expect(page.errors).toEqual([])
+})
 
 // Add a tile to the page and wait for the observer to handle it.
 async function addTile(page, html) {
-  await page.evaluate((h) => { const w = document.createElement('div'); w.className = 'kpis'; w.id = 'test-band'; w.innerHTML = h; document.body.append(w) }, html)
+  await page.evaluate((h) => {
+    const w = document.createElement('div')
+    w.className = 'kpis'
+    w.id = 'test-band'
+    w.innerHTML = h
+    document.body.append(w)
+  }, html)
   await page.waitForTimeout(50)
   return page.locator('#test-band > .kpi').first()
 }
@@ -40,10 +48,16 @@ test('a blank value is a gap: the line breaks there', async ({ page }) => {
 })
 
 test('a value alone between gaps is a dot; fewer than two numbers draws nothing', async ({ page }) => {
-  const dot = await addTile(page, '<a class="kpi" href="#" data-spark="1,2,,5,,7,8"><span class="kpi-v">8</span><span class="kpi-l">Dots</span></a>')
+  const dot = await addTile(
+    page,
+    '<a class="kpi" href="#" data-spark="1,2,,5,,7,8"><span class="kpi-v">8</span><span class="kpi-l">Dots</span></a>',
+  )
   await expect(dot.locator('path.dot')).toHaveAttribute('d', /h0/)
   await page.evaluate(() => document.getElementById('test-band').remove())
-  const none = await addTile(page, '<a class="kpi" href="#" data-spark="5,NA,n/a"><span class="kpi-v">5</span><span class="kpi-l">None</span></a>')
+  const none = await addTile(
+    page,
+    '<a class="kpi" href="#" data-spark="5,NA,n/a"><span class="kpi-v">5</span><span class="kpi-l">None</span></a>',
+  )
   await expect(none.locator('svg.kpi-spark')).toHaveCount(0)
   await expect(none).not.toHaveClass(/kpi--spark/)
 })
@@ -51,9 +65,13 @@ test('a value alone between gaps is a dot; fewer than two numbers draws nothing'
 test('changing data-spark redraws; removing it removes the line', async ({ page }) => {
   const t = page.locator('#spark > .kpi').first()
   const before = await t.locator('path.line').getAttribute('d')
-  await t.evaluate((el) => { el.dataset.spark = '1,5,2,8' })
+  await t.evaluate((el) => {
+    el.dataset.spark = '1,5,2,8'
+  })
   await expect.poll(() => t.locator('path.line').getAttribute('d')).not.toBe(before)
-  await t.evaluate((el) => { delete el.dataset.spark })
+  await t.evaluate((el) => {
+    delete el.dataset.spark
+  })
   await expect(t.locator('svg.kpi-spark')).toHaveCount(0)
 })
 
@@ -74,7 +92,9 @@ test('every tile with data-tip is described by it', async ({ page }) => {
 
 test('the description follows data-tip changes', async ({ page }) => {
   const t = page.locator('#static > .kpi').first()
-  await t.evaluate((el) => { el.dataset.tip = 'Changed definition' })
+  await t.evaluate((el) => {
+    el.dataset.tip = 'Changed definition'
+  })
   await expect(t).toHaveAccessibleDescription('Changed definition')
 })
 
