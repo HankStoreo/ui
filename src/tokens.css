@@ -1,4 +1,4 @@
-/* ui tokens: the custom properties the components read. Generated from the source kit; do not edit by hand.
+/* ui tokens: the custom properties the components read. Exported from an upstream design kit on each release; edits here are overwritten, so open an issue instead.
    Light by default; dark follows the system, or set data-theme="dark" (or "light") on <html> to choose.
    Reduced motion sets every duration to 0ms. --depth counts how deeply a raised surface is nested, so a tile
    inside a raised box lifts less. */
