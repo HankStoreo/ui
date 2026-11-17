@@ -1,0 +1,5 @@
+#!/bin/sh
+# Runs a local, uncommitted .git/hooks/pre-push first if there is one, then the repo check.
+local_hook="$(git rev-parse --git-dir)/hooks/pre-push"
+if [ -x "$local_hook" ]; then "$local_hook" "$@" || exit 1; fi
+exec npm run --silent check
