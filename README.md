@@ -23,7 +23,7 @@ The demos also work offline: open a component's `index.html` from a clone.
 
 ## Install
 
-Copy `src/tokens.css`, the files in `src/shared/` that a component lists, and that component's folder into your project. Then link them:
+Copy `src/tokens.css`, the files in `src/shared/` that a component lists, and that component's `.css` and `.js` into your project. The rest of the folder is its demo, readme and test. Then link them:
 
 ```html
 <link rel="stylesheet" href="tokens.css">
@@ -62,9 +62,15 @@ npm test
 
 The tests run every component test and every demo page (including an axe accessibility scan in light and dark) in Chromium, Firefox and WebKit.
 
-Lint with `npm run lint` ([Biome](https://biomejs.dev), recommended rules, warnings fail). It covers the components' CSS and JavaScript, the tests and the media script. The inline scripts in the demo pages aren't linted, because Biome's HTML support is partial. CI runs the lint and the tests on every push and pull request.
+`npm run check` runs [Biome](https://biomejs.dev) (lint with the recommended rules, warnings fail, plus a format check) and confirms `package.json`'s version matches the latest changelog entry. The lint covers the components' CSS and JavaScript, the tests and the media script. The inline scripts in the demo pages aren't linted, because Biome's HTML support is partial. The formatter covers the tests and tooling only: the component files are exported from an upstream design kit and keep its layout. `npm run format` applies it.
+
+`npm install` points git at `.githooks/`: pre-push runs `npm run check` (the browser tests are left to CI because they are slow), and commit-msg rejects AI co-author and session trailers. CI runs the check, the trailer scan and the tests on every push and pull request.
 
 The gifs and videos in `docs/media/` are recorded from the demo pages by `npm run media` (needs ffmpeg). Rerun it after any visual change.
+
+## Security
+
+See [SECURITY.md](SECURITY.md) to report a vulnerability.
 
 ## Licence
 
