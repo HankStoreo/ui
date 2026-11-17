@@ -30,8 +30,11 @@ test('a disabled button is described by its reason', async ({ page }) => {
 })
 
 test('the guard drops presses on a busy or aria-disabled .btn', async ({ page }) => {
-  // The demo clears busy after 2s. Hold the clock so a slow runner can't let it expire mid-test.
-  await page.clock.install()
+  // The demo clears busy after 2s. Freeze the clock so a slow runner can't let it expire mid-test.
+  // install() alone keeps time flowing, and only governs pages loaded after it: reload, then pause.
+  await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') })
+  await page.reload()
+  await page.clock.pauseAt(new Date('2026-01-01T00:00:01Z'))
   const out = page.locator('#presses')
   await page.locator('#try-locked').click({ force: true })
   await expect(out).toHaveText('Presses handled: 0')
